@@ -45,7 +45,6 @@ module.exports = {
                 use: ['style-loader', 'css-loader'],
             },
             {
-
                 test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
                 use: [
                     {
@@ -56,9 +55,17 @@ module.exports = {
                         }
                     }
                 ]
-
+            },
+            {
+                test: /worker_.*\.js$/,
+                use: {
+                    loader: 'worker-loader',
+                    options: {
+                        inline: 'fallback',
+                        filename: '[name].[contenthash].worker.js'
+                    }
+                }
             }
         ],
-
     },
 };
