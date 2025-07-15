@@ -4,6 +4,8 @@ const {  screen_shot } = require('./utils.js')
 import keyboardManager from './keyboardManager.js'
 import FileSaver from 'file-saver' ;
 import Model from "./model";
+import WorkerBcn from './worker_bcn.js';
+import WorkerDistance from './worker_distance.js';
 
 // Main class of phylo.io
 export default class API {
@@ -183,7 +185,7 @@ export default class API {
 
         if (recompute || todo1 || todo2  ){
 
-            var worker_comp = new Worker(new URL("./worker_bcn.js", import.meta.url));
+            var worker_comp = new WorkerBcn();
 
 
             worker_comp.onmessage = function(e) {
@@ -387,7 +389,7 @@ export default class API {
 
         }
 
-        var worker_distance = new Worker(new URL("./worker_distance.js", import.meta.url));
+        var worker_distance = new WorkerDistance();
 
         worker_distance.onmessage = (e) => {
 
