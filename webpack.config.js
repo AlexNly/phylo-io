@@ -5,7 +5,7 @@ module.exports = {
     entry: './src/index.js',
     mode: 'development',
     output: {
-        publicPath: '',
+        publicPath: 'dist/',
         filename: 'phylo.js',
         path: path.resolve(__dirname, 'dist'),
         library: 'PhyloIO',
@@ -19,8 +19,21 @@ module.exports = {
             https: require.resolve("https-browserify"),
             os: require.resolve("os-browserify"),
             url: require.resolve("url"),
+            buffer: require.resolve("buffer"),
+            process: require.resolve("process/browser"),
+            vm: require.resolve("vm-browserify"),
         }
     },
+    plugins: [
+        new webpack.ProvidePlugin({
+            process: 'process/browser',
+            Buffer: ['buffer', 'Buffer'],
+        }),
+        new webpack.DefinePlugin({
+            global: 'globalThis',
+            'global.Buffer': ['buffer', 'Buffer'],
+        }),
+    ],
     optimization: {
         splitChunks: false,      // disable vendor splitting
         runtimeChunk: false      // disable runtime chunk
