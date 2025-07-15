@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Phylo.io refactoring 0.0.1</title>
+    
+    <!-- Bootstrap Icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    
+    <!-- Phylo.io Bundle - Local Build with Inline Workers -->
+    <script src="dist/phylo.js"></script>
+</head>
+
+<body>
+    <div id="container1" style="display: inline-block;width: 45%;margin:16px;height: 720px;background-color: #fff;"></div>
+    <div id="container2" style="display: inline-block;width: 45%;margin:16px;height: 720px;background-color: #fff;"></div>
+
+    <script>
+        const t1 = "((leaf_2:3,(leaf_4:1,(leaf_6:1,leaf_7:4)internal_5:3)internal_3:0)internal_1:2,(leaf_9:2,leaf_10:2)internal_8:0)internal_0:0.0;";
+        const t2 = "(((((leaf_6:1.0,leaf_7:3.0)internal1:6.0,(leaf_2:1.0,leaf_4:1.0)internal4:0.0)internal5:2.0,leaf_9:1.0)internal3:0.0,leaf_10:1.0)internal2:0.0)internal_0:0.0;";
+
+        const phylo = PhyloIO.init();
+        const c1 = phylo.create_container("container1");
+        const c2 = phylo.create_container("container2");
+
+        c1.add_tree(t1, {'use_branch_lenght': true});
+        c2.add_tree(t2);
+
+        phylo.settings.compareMode = true;
+        phylo.bound_container = [c1, c2];
+        phylo.start();
+    </script>
+</body>
+
+</html>
